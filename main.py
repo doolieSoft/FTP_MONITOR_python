@@ -45,6 +45,10 @@ def create_file_on_erp_from_nrb_master():
     differences_nrb = list(set(ftpNrbErrorFilesList) - set(erpFtpErrorFilesList))
     ls = []
     ftpNrb.retrlines('MLSD ' + ftpNrbMonitoredFolders[folderKey], ls.append)
+    analyse_and_replicate_file_on_erp(differences_nrb, ls)
+
+
+def analyse_and_replicate_file_on_erp(differences_nrb, ls):
     for entry in ls:
         if 'Size' in entry:
             erp_filename = entry.split(';')[3].strip()
